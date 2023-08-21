@@ -13,7 +13,7 @@ service 'apache2' do
 end
 
 file '/var/www/html/index.html' do
-  content '<html><body><h1>Server1</html></body></h1>'
+  content '<html><body><h1>Server2</html></body></h1>'
   action :create
 end 
 
