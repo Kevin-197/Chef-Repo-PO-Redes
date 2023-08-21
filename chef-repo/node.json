@@ -1,0 +1,6 @@
+{
+	"run_list": [ "recipe[apache::apache-priv]" ] ,
+	"attr": {
+			"gateway": "20.120.97.50"
+				}
+}
