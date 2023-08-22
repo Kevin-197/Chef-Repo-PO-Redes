@@ -77,6 +77,16 @@ execute "asterisk_ownership" do
 	action :run
 end
 
+execute "asterisk_configfile1" do
+	command "echo -e \"AST_USER=\"asterisk\"\nAST_GROUP=\"asterisk\"\n\nCOLOR=yes\" > /etc/default/asterisk"
+	action :run
+end
+
+execute "asterisk_configfile2" do
+	command "echo -e \"\nrunuser = asterisk              ; The user to run as.\nrungroup = asterisk             ; The group to run as.\" >> /etc/asterisk/asterisk.conf"
+	action :run
+end
+
 execute "restart_Asterisk" do
 	command "sudo systemctl restart asterisk"
 	action :run
@@ -126,7 +136,7 @@ execute "install_nodejs" do
 end	
 	
 execute "set_permissions" do
-	command "sudo ./start_asterisk start && sudo -u asterisk ./install -n"
+	command "sudo ./start_asterisk start && sudo ./install -n"
 	cwd "/tmp/freepbx"
 	action :run
 end		
