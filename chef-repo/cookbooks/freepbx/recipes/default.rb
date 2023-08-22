@@ -126,7 +126,7 @@ execute "install_nodejs" do
 end	
 	
 execute "set_permissions" do
-	command "sudo ./install -n"
+	command "sudo ./start_asterisk start && sudo ./install -n"
 	cwd "/tmp/freepbx"
 	action :run
 end		
