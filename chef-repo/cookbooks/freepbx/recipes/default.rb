@@ -78,12 +78,12 @@ execute "asterisk_ownership" do
 end
 
 execute "asterisk_configfile1" do
-	command "echo -e \"AST_USER=\"asterisk\"\nAST_GROUP=\"asterisk\"\n\nCOLOR=yes\" > /etc/default/asterisk"
+	command "echo \"AST_USER=\"\"asterisk\"\"\nAST_GROUP=\"\"asterisk\"\"\n\nCOLOR=yes\" > /etc/default/asterisk"
 	action :run
 end
 
 execute "asterisk_configfile2" do
-	command "echo -e \"\nrunuser = asterisk              ; The user to run as.\nrungroup = asterisk             ; The group to run as.\" >> /etc/asterisk/asterisk.conf"
+	command "echo \"\nrunuser = asterisk              ; The user to run as.\nrungroup = asterisk             ; The group to run as.\" >> /etc/asterisk/asterisk.conf"
 	action :run
 end
 
