@@ -7,7 +7,7 @@
 
 #update
 execute "update" do
-	command "sudo apt-get update -y"
+	command "sudo apt-get update -y && sudo apt-get upgrade -y"
 	action :run
 end
 
@@ -30,7 +30,7 @@ execute "extract_asterisk" do
 end
 
 execute "change_directory_asterisk" do
-	command "cd /home/ubuntu/asterisk-18.* && contrib/scripts/get_mp3_source.sh && DEBIAN_FRONTEND=noninteractive contrib/scripts/install_prereq install"
+	command "cd /home/ubuntu/asterisk-18.* && contrib/scripts/get_mp3_source.sh && contrib/scripts/install_prereq install"
 	cwd '/home/ubuntu'
 	action :run
 end
@@ -38,6 +38,13 @@ end
 
 execute "configure" do
 	command "cd /home/ubuntu/asterisk-18.* && ./configure"
+	cwd '/home/ubuntu'
+	action :run
+end
+
+
+execute "makemenu" do
+	command "cd /home/ubuntu/asterisk-18.* && make menuselect"
 	cwd '/home/ubuntu'
 	action :run
 end
@@ -136,7 +143,7 @@ execute "install_nodejs" do
 end	
 	
 execute "set_permissions" do
-	command "sudo ./start_asterisk start && sudo ./install -n"
+	command "sudo ./install -n"
 	cwd "/home/ubuntu/asterisk-18.19.0/freepbx"
 	action :run
 end		
