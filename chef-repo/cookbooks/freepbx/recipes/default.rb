@@ -43,20 +43,20 @@ execute "configure" do
 end
 
 execute "build_asterisk" do
-	command "make -j2"
+	command "make -j4"
 	cwd "/tmp/asterisk-18.19.0"
 	action :run
 end
 
 execute "make_install" do
-	command "cd /tmp/asterisk-18.* && sudo make install"
-	cwd "/tmp/asterisk-18.*"
+	command "sudo make install"
+	cwd "/tmp/asterisk-18.19.0"
 	action :run
 end
 
 execute "samples_config" do
-	command "cd /tmp/asterisk-18.* && sudo make samples && sudo make config && sudo ldconfig"
-	cwd "/tmp/asterisk-18.*"
+	command "sudo make samples && sudo make config && sudo ldconfig"
+	cwd "/tmp/asterisk-18.19.0"
 	action :run
 end
 
