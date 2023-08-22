@@ -73,7 +73,7 @@ execute "addaudio_asterisk" do
 end
 
 execute "asterisk_ownership" do
-	command "sudo chown -R asterisk.asterisk /etc/asterisk && sudo chown -R asterisk.asterisk /var/{lib,log,spool}/asterisk && sudo chown -R asterisk.asterisk /usr/lib/asterisk"
+	command "sudo chown -R asterisk.asterisk /etc/asterisk && sudo chown -R asterisk.asterisk /var/lib/asterisk && sudo chown -R asterisk.asterisk /var/log/asterisk && sudo chown -R asterisk.asterisk /var/spool/asterisk && sudo chown -R asterisk.asterisk /usr/lib/asterisk"
 	action :run
 end
 
