@@ -143,21 +143,25 @@ end
 	
 execute "install_pm2_module" do
 	command "sudo fwconsole ma install pm2"
+	cwd "/tmp/freepbx"
 	action :run
 end	 	
 	
 execute "apache_configuration_user" do
 	command "sudo sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf && sudo sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf"
+	cwd "/tmp/freepbx"
 	action :run
 end	
 
 execute "increase_upload_max_filesize" do
 	command "sudo sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.2/apache2/php.ini && sudo sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.2/cli/php.ini"
+	cwd "/tmp/freepbx"
 	action :run
 end	
 	
 execute "rewrite_apache_restart" do
 	command "sudo a2enmod rewrite && sudo systemctl restart apache2"
+	cwd "/tmp/freepbx"
 	action :run
 end
 
