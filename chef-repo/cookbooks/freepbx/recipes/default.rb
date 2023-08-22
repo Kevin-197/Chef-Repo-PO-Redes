@@ -59,22 +59,14 @@ end
 
 ###ASTERISK SERVER CONFIG
 
-group "asterisk" do
-	action :create
+execute "group_asterisk" do
+	command "sudo groupadd asterisk && sudo useradd -r -d /var/lib/asterisk -g asterisk asterisk"
+	action :run
 end
 
-user "asterisk" do
-	comment "Asterisk user"
-	gid "asterisk"
-	home "/var/lib/asterisk"
-	shell "/bin/bash"
-	system true
-	action :create
-end
-
-user "asterisk" do
-	action :modify
-	groups ["audio", "dialout"]
+execute "addaudio_asterisk" do
+	command "usermod -aG audio,dialout asterisk"
+	action :run
 end
 
 execute "asterisk_ownership" do
