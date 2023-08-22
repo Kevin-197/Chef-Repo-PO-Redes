@@ -18,38 +18,45 @@ execute "freepbx_Dependencies" do
 end
 
 #download asterisk file
-execute "download_asterisk" do
-	command "wget http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-18-current.tar.gz"
-	action :run
+remote_file "/home/ubuntu/asterisk-18-current.tar.gz" do
+	source "http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-18-current.tar.gz"
+	action :create
 end
 
 execute "extract_asterisk" do
 	command "tar -xvzf asterisk-18-current.tar.gz"
+	cwd '/home/ubuntu'
 	action :run
 end
 
 execute "change_directory_asterisk" do
-	command "cd asterisk-18.* && contrib/scripts/get_mp3_source.sh && DEBIAN_FRONTEND=noninteractive contrib/scripts/install_prereq install"
+	command "cd /home/ubuntu/asterisk-18.* && contrib/scripts/get_mp3_source.sh && DEBIAN_FRONTEND=noninteractive contrib/scripts/install_prereq install"
+	cwd '/home/ubuntu'
 	action :run
 end
 
+
 execute "configure" do
-	command "./configure"
+	command "cd /home/ubuntu/asterisk-18.* && ./configure"
+	cwd '/home/ubuntu'
 	action :run
 end
 
 execute "build_asterisk" do
 	command "make -j4"
+	cwd "/home/ubuntu/asterisk-18.19.0"
 	action :run
 end
 
 execute "make_install" do
 	command "sudo make install"
+	cwd "/home/ubuntu/asterisk-18.19.0"
 	action :run
 end
 
 execute "samples_config" do
 	command "sudo make samples && sudo make config && sudo ldconfig"
+	cwd "/home/ubuntu/asterisk-18.19.0"
 	action :run
 end
 
@@ -109,46 +116,52 @@ end
 	
 execute "install_apache_mariadb_php" do
 	command "sudo apt-get install apache2 mariadb-server libapache2-mod-php7.2 php7.2 php-pear php7.2-cgi php7.2-common php7.2-curl php7.2-mbstring php7.2-gd php7.2-mysql php7.2-bcmath php7.2-zip php7.2-xml php7.2-imap php7.2-json php7.2-snmp -y"
-	action :command
+	action :run
 end	
 	
-execute "download_freepbx" do
-	command "wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-15.0-latest.tgz"
-	action :command
+remote_file "/home/ubuntu/asterisk-18.19.0/freepbx-15.0-latest.tgz" do
+	source "http://mirror.freepbx.org/modules/packages/freepbx/freepbx-15.0-latest.tgz"
+	action :create
 end
 	
 execute "extract_freepbx" do
 	command "tar -xvzf freepbx-15.0-latest.tgz"
+	cwd "/home/ubuntu/asterisk-18.19.0"
 	action :run
 end
 	
 execute "install_nodejs" do
-	command "cd freepbx && sudo apt-get install nodejs npm -y"
+	command "cd /home/ubuntu/asterisk-18.19.0/freepbx && sudo apt-get install nodejs npm -y"
 	action :run
 end	
 	
 execute "set_permissions" do
 	command "sudo ./start_asterisk start && sudo ./install -n"
+	cwd "/home/ubuntu/asterisk-18.19.0/freepbx"
 	action :run
 end		
 	
 execute "install_pm2_module" do
 	command "sudo fwconsole ma install pm2"
+	cwd "/home/ubuntu/asterisk-18.19.0/freepbx"
 	action :run
 end	 	
 	
 execute "apache_configuration_user" do
 	command "sudo sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf && sudo sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf"
+	cwd "/home/ubuntu/asterisk-18.19.0/freepbx"
 	action :run
 end	
 
 execute "increase_upload_max_filesize" do
 	command "sudo sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.2/apache2/php.ini && sudo sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.2/cli/php.ini"
+	cwd "/home/ubuntu/asterisk-18.19.0/freepbx"
 	action :run
 end	
 	
 execute "rewrite_apache_restart" do
 	command "sudo a2enmod rewrite && sudo systemctl restart apache2"
+	cwd "/home/ubuntu/asterisk-18.19.0/freepbx"
 	action :run
 end
 
