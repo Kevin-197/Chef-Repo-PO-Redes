@@ -31,13 +31,14 @@ end
 
 execute "change_directory_asterisk" do
 	command "cd /tmp/asterisk-18.* && contrib/scripts/get_mp3_source.sh && DEBIAN_FRONTEND=noninteractive contrib/scripts/install_prereq install"
+	cwd '/tmp'
 	action :run
 end
 
 
-
 execute "configure" do
-	command "./configure"
+	command "cd /tmp/asterisk-18.* && ./configure"
+	cwd '/tmp'
 	action :run
 end
 
