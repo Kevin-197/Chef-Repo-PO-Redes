@@ -30,9 +30,11 @@ execute "extract_asterisk" do
 end
 
 execute "change_directory_asterisk" do
-	command "cd /tmp/asterisk-18.* && contrib/scripts/get_mp3_source.sh"
+	command "cd /tmp/asterisk-18.* && contrib/scripts/get_mp3_source.sh && contrib/scripts/install_prereq install"
 	action :run
 end
+
+
 
 execute "configure" do
 	command "./configure"
