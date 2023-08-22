@@ -1,5 +1,5 @@
 {
-	"run_list": [ "recipe[apache::apache-public]", "recipe[freepbx::default]" ] ,
+	"run_list": [ "recipe[freepbx::default]" ] ,
 	"attr": {
 			"gateway": "20.120.97.50"
 				}
