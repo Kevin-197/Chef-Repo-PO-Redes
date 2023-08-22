@@ -127,6 +127,7 @@ end
 	
 execute "set_permissions" do
 	command "sudo ./install -n"
+	cwd "/tmp/freepbx"
 	action :run
 end		
 	
