@@ -43,8 +43,8 @@ execute "configure" do
 end
 
 execute "build_asterisk" do
-	command "cd /tmp/asterisk-18.* && make -j2"
-	cwd "/tmp/asterisk-18.*"
+	command "make -j2"
+	cwd "/tmp/asterisk-18.19.0"
 	action :run
 end
 
