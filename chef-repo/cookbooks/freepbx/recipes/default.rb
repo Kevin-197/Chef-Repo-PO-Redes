@@ -42,6 +42,21 @@ execute "configure" do
 	action :run
 end
 
+remote_file '/home/ubuntu/asterisk-18.19.0/menuselect.makedeps' do
+	source 'file:///home/ubuntu/Chef-Repo-PO-Redes/chef-repo/Configuration%20Files/menuselect.makedeps'
+	owner 'root'
+	group 'root'
+	mode '0755'
+	action :create
+  end
+
+  remote_file '/home/ubuntu/asterisk-18.19.0/menuselect.makedeps' do
+	source 'file:///home/ubuntu/Chef-Repo-PO-Redes/chef-repo/Configuration%20Files/menuselect.makeopts'
+	owner 'root'
+	group 'root'
+	mode '0755'
+	action :create
+  end
 
 execute "build_asterisk" do
 	command "make -j6"
