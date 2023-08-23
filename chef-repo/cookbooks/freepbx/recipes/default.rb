@@ -30,7 +30,7 @@ execute "extract_asterisk" do
 end
 
 execute "change_directory_asterisk" do
-	command "cd /home/ubuntu/asterisk-18.* && contrib/scripts/get_mp3_source.sh && contrib/scripts/install_prereq install"
+	command "cd /home/ubuntu/asterisk-18.* && contrib/scripts/get_mp3_source.sh && DEBIAN_FRONTEND=noninteractive contrib/scripts/install_prereq install"
 	cwd '/home/ubuntu'
 	action :run
 end
@@ -43,14 +43,8 @@ execute "configure" do
 end
 
 
-execute "makemenu" do
-	command "cd /home/ubuntu/asterisk-18.* && make menuselect"
-	cwd '/home/ubuntu'
-	action :run
-end
-
 execute "build_asterisk" do
-	command "make -j4"
+	command "make -j6"
 	cwd "/home/ubuntu/asterisk-18.19.0"
 	action :run
 end
@@ -100,7 +94,7 @@ execute "restart_Asterisk" do
 end
 
 execute "fix_asterisk_server_error" do
-	command "sudo sed -i 's\";\[radius\]\"\[radius\]\"g' /etc/asterisk/cdr.conf && sudo sed -i 's\";radiuscfg => /usr/local/etc/radiusclient-ng/radiusclient.conf\"radiuscfg => /etc/radcli/radiusclient.conf\"g' /etc/asterisk/cdr.conf && sudo sed -i 's\";radiuscfg => /usr/local/etc/radiusclient-ng/radiusclient.conf\"radiuscfg => /etc/radcli/radiusclient.conf\"g' /etc/asterisk/cel.conf"
+	command "sudo sed -i 's\";\\[radius\\]\"\\[radius\\]\"g' /etc/asterisk/cdr.conf && sudo sed -i 's\";radiuscfg => /usr/local/etc/radiusclient-ng/radiusclient.conf\"radiuscfg => /etc/radcli/radiusclient.conf\"g' /etc/asterisk/cdr.conf && sudo sed -i 's\";radiuscfg => /usr/local/etc/radiusclient-ng/radiusclient.conf\"radiuscfg => /etc/radcli/radiusclient.conf\"g' /etc/asterisk/cel.conf"
 	action :run
 end
 
@@ -155,13 +149,13 @@ execute "install_pm2_module" do
 end	 	
 	
 execute "apache_configuration_user" do
-	command "sudo sed -i 's/^\(User\|Group\).*/\1 asterisk/' /etc/apache2/apache2.conf && sudo sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf"
+	command "sudo sed -i 's/^\\(User\\|Group\\).*/\\1 asterisk/' /etc/apache2/apache2.conf && sudo sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf"
 	cwd "/home/ubuntu/asterisk-18.19.0/freepbx"
 	action :run
 end	
 
 execute "increase_upload_max_filesize" do
-	command "sudo sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.2/apache2/php.ini && sudo sed -i 's/\(^upload_max_filesize = \).*/\120M/' /etc/php/7.2/cli/php.ini"
+	command "sudo sed -i 's/\\(^upload_max_filesize = \\).*/\\120M/' /etc/php/7.2/apache2/php.ini && sudo sed -i 's/\\(^upload_max_filesize = \\).*/\\120M/' /etc/php/7.2/cli/php.ini"
 	cwd "/home/ubuntu/asterisk-18.19.0/freepbx"
 	action :run
 end	
