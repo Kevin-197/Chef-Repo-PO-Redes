@@ -1,0 +1,7 @@
+{
+	"run_list": [ "recipe[apache::apache]", "recipe[squid::squid-cache]"] ,
+	"attr": {
+		"gateway": "20.120.97.50",
+		"apache_number": "1"
+	}
+}
