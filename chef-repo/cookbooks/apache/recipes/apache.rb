@@ -12,7 +12,7 @@ service 'apache2' do
   action [:start, :enable]
 end
 
-number = node['attr']['apache_number'] || 'Server'
+number = node['attr']['apache_number'] || '0'
 
 file '/var/www/html/index.html' do
   content "<html><body><h1>Server #{number}</h1></body></html>"
