@@ -1,5 +1,5 @@
 {
-	"run_list": [ "recipe[apache::apache]", "recipe[squid::squid-cache]"] ,
+	"run_list": [ "recipe[apache::apache]", "recipe[squid::squid-cache]", "recipe[bind9::bind9-dns]"] ,
 	"attr": {
 		"gateway": "20.120.97.50",
 		"apache_number": "1"
