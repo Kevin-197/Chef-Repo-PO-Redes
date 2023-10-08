@@ -15,6 +15,14 @@ remote_file '/etc/bind/named.conf.local' do
 	mode '0755'
 	action :create
 end
+
+directory '/etc/bind/zones' do
+	owner 'root'     
+	group 'root'     
+	mode '0755'      
+	recursive true   
+	action :create   
+end
   
 remote_file '/etc/bind/zones/asimov.io.zone' do
 	source 'file:///home/ubuntu/Chef-Repo-PO-Redes/chef-repo/Configuration%20Files/asimov.io.zone'

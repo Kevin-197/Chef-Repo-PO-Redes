@@ -1,4 +1,4 @@
-name 'squid'
+name 'bind9'
 maintainer 'The Authors'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
