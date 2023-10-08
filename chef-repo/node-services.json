@@ -2,7 +2,7 @@
 	"run_list": [ "recipe[apache::apache]", "recipe[squid::squid-cache]", "recipe[bind9::bind9-dns]", "recipe[nginx::nginx-reverse]" ] ,
 	"attr": {
 		"gateway": "20.120.97.50",
-		"apache_number": "1",
-		"apache2_ip": "cambiarIp"
+		"apache_number": "2",
+		"apache2_ip": "18.232.138.180"
 	}
 }
