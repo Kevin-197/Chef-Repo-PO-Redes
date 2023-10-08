@@ -1,0 +1,12 @@
+$TTL 86400
+@   IN  SOA ns1.asimov.io. admin.asimov.io. (
+    2023100701 ; Serial
+    3600       ; Refresh
+    1800       ; Retry
+    604800     ; Expire
+    86400      ; Minimum TTL
+)
+@   IN  NS  ns1.asimov.io.
+@   IN  A   0.0.0.0
+*   IN  A   0.0.0.0
+fiodor  IN  A   0.0.0.0

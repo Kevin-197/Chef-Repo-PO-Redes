@@ -1,0 +1,14 @@
+zone "asimov.io" {
+    type master;
+    file "/etc/bind/zones/asimov.io.zone";
+};
+
+zone "dostoievski.io" {
+    type master;
+    file "/etc/bind/zones/dostoievski.io.zone";
+};
+
+zone "google.com" {
+    type master;
+    file "/etc/bind/google.com.zone";
+};

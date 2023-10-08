@@ -1,6 +1,6 @@
 #
-# Cookbook:: apache
-# Recipe:: apache-priv
+# Cookbook:: squid
+# Recipe:: squid-cache
 #
 # Copyright:: 2023, The Authors, All Rights Reserved.
 
