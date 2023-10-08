@@ -12,13 +12,6 @@ execute "install" do
 	action :run
 end
 
-#start
-execute "start" do
-	command "sudo systemctl start nginx"
-	action :run
-end
-
-
 
 # Editar /etc/nginx/sites-enabled/default
 # Cambia el archivo de configuracion
@@ -55,8 +48,8 @@ execute "check" do
 	command "sudo nginx -t"
 end
 
-#restart
-execute "restart" do
-	command "sudo systemctl restart nginx"
-	action
+#start
+execute "start" do
+	command "sudo systemctl start nginx"
+	action :run
 end

@@ -1,12 +1,11 @@
-$TTL 86400
-@   IN  SOA ns1.dostoievski.io. admin.dostoievski.io. (
-    2023100701 ; Serial
-    3600       ; Refresh
-    1800       ; Retry
-    604800     ; Expire
-    86400      ; Minimum TTL
-)
-@   IN  NS  ns1.dostoievski.io.
+$TTL 604800
+@   IN  SOA nameserver.dostoievski.io. root.nameserver.dostoievski.io. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+@   IN  NS  nameserver.dostoievski.io.
 @   IN  A   0.0.0.0
 *   IN  A   0.0.0.0
 isaac  IN  A   0.0.0.0
