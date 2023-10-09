@@ -98,6 +98,14 @@ file '/etc/resolv.conf' do
 	action :append
 end 
 
+execute "edit_resolv" do
+	command "echo \"\nnameserver #{ip_address}\n
+	search asimov.io\n
+	search dostoievski.io\n
+	search google.com\" >> /etc/asterisk/asterisk.conf"
+	action :run
+end
+
 execute 'restart-bind9' do
 	command 'sudo systemctl restart bind9'
 	action :run
