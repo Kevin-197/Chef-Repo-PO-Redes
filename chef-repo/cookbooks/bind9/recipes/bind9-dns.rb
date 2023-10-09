@@ -90,13 +90,6 @@ remote_file '/etc/bind/named.conf.options' do
 end
 
 ip_address = node['attr']['ipaddress'] || '0.0.0.0'
-file '/etc/resolv.conf' do
-	content "\nnameserver #{ip_address}\n
-	search asimov.io\n
-	search dostoievski.io\n
-	search google.com"
-	action :append
-end 
 
 execute "edit_resolv" do
 	command "echo \"\nnameserver #{ip_address}\n
