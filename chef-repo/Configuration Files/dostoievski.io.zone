@@ -1,11 +1,11 @@
 $TTL 604800
-@   IN  SOA nameserver.dostoievski.io. root.nameserver.dostoievski.io. (
+@   IN  SOA ip-10-0-0-186.dostoievski.io. admin.dostoievski.io. (
                               2         ; Serial
                          604800         ; Refresh
                           86400         ; Retry
                         2419200         ; Expire
                          604800 )       ; Negative Cache TTL
-@   IN  NS  nameserver.dostoievski.io.
-@   IN  A   0.0.0.0
-*   IN  A   0.0.0.0
-isaac  IN  A   0.0.0.0
+@   IN  NS  ip-10-0-0-186.dostoievski.io.
+@   IN  A   127.0.0.0
+*   IN  A   127.0.0.0
+isaac  IN  A   127.0.0.0

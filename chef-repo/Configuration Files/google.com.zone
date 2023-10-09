@@ -1,12 +1,12 @@
 $TTL 604800
-@ IN SOA nameserver.google.com. root.nameserver.google.com. (
+@   IN  SOA ip-10-0-0-186.google.com. admin.google.com. (
                               2         ; Serial
                          604800         ; Refresh
                           86400         ; Retry
                         2419200         ; Expire
                          604800 )       ; Negative Cache TTL
-@ IN NS nameserver.google.com.
-@ IN A 0.0.0.0
-@ IN A 0.0.0.0
-www IN A 0.0.0.0
-www IN A 0.0.0.0
+@   IN  NS  ip-10-0-0-186.google.com.
+@   IN  A   127.0.0.0
+@   IN  A   127.0.0.0
+www  IN  A   127.0.0.0
+www  IN  A   127.0.0.0
