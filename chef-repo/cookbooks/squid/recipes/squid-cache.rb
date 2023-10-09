@@ -21,3 +21,8 @@ service 'squid' do
   action [:enable, :start]
 end
 
+execute 'restart_squid' do
+	command 'sudo systemctl restart squid'
+	action :run
+end
+
