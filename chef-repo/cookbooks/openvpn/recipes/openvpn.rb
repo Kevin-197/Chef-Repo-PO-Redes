@@ -4,18 +4,14 @@
 #
 # Copyright:: 2023, The Authors, All Rights Reserved.
 
-remote_file '/home/ubuntu/openvpn-install.sh' do
-	source 'https://git.io/vpn'
-	owner 'root'
-	group 'root'
-	mode 'x+'
-	action :create
-end
-
-execute 'Ejecutar_Instalacion_Chef' do
+execute 'Ejecutar_Instalacion_OpenVPN' do
 	command 'bash openvpn-install.sh'
-	cwd '/home/ubuntu'
+	cwd '/home/ubuntu/Chef-Repo-PO-Redes/chef-repo/Configuration\ Files'
 	action: run
 end
 
-
+file '/home/ubuntu/Desktop.ovpn' do
+	source '~/Desktop.ovpn'
+	action :create
+end
+  
