@@ -38,46 +38,46 @@ hostname = node['attr']['hostname'] || 'localhost'
 
 file '/etc/bind/zones/dostoievski.io.zone' do
 	content "$TTL 604800 \n
-	@   IN  SOA #{hostname}.dostoievski.io. admin.dostoievski.io. (\n
-								  2         ; Serial\n
-							 604800         ; Refresh\n
-							  86400         ; Retry\n
-							2419200         ; Expire\n
-							 604800 )       ; Negative Cache TTL\n
-	@   IN  NS  #{hostname}.dostoievski.io.\n
-	@   IN  A   #{apache2}\n
-	*   IN  A   #{apache2}\n
-	isaac  IN  A   #{apache1}"
+@   IN  SOA #{hostname}.dostoievski.io. admin.dostoievski.io. (\n
+							  2         ; Serial\n
+						 604800         ; Refresh\n
+						  86400         ; Retry\n
+						2419200         ; Expire\n
+						 604800 )       ; Negative Cache TTL\n
+@   IN  NS  #{hostname}.dostoievski.io.\n
+@   IN  A   #{apache2}\n
+*   IN  A   #{apache2}\n
+isaac  IN  A   #{apache1}\n"
 	action :create
 end 
 
 file '/etc/bind/zones/asimov.io.zone' do
 	content "$TTL 604800 \n
-	@   IN  SOA #{hostname}.asimov.io. admin.asimov.io. (\n
-								  2         ; Serial\n
-							 604800         ; Refresh\n
-							  86400         ; Retry\n
-							2419200         ; Expire\n
-							 604800 )       ; Negative Cache TTL\n
-	@   IN  NS  #{hostname}.asimov.io.\n
-	@   IN  A   #{apache1}\n
-	*   IN  A   #{apache1}\n
-	fiodor  IN  A   #{apache2}"
+@   IN  SOA #{hostname}.asimov.io. admin.asimov.io. (\n
+							  2         ; Serial\n
+						 604800         ; Refresh\n
+						  86400         ; Retry\n
+						2419200         ; Expire\n
+						 604800 )       ; Negative Cache TTL\n
+@   IN  NS  #{hostname}.asimov.io.\n
+@   IN  A   #{apache1}\n
+*   IN  A   #{apache1}\n
+fiodor  IN  A   #{apache2}\n"
 	action :create
 end 
 
 file '/etc/bind/zones/google.com.zone' do
 	content "$TTL 604800 \n
-	@   IN  SOA #{hostname}.google.com. admin.google.com. (\n
-								  2         ; Serial\n
-							 604800         ; Refresh\n
-							  86400         ; Retry\n
-							2419200         ; Expire\n
-							 604800 )       ; Negative Cache TTL\n
-	@   IN  NS  #{hostname}.google.com.\n
-	*   IN  A   8.8.8.8\n
-	www  IN  A   #{apache1}\n
-	www  IN  A   #{apache2}"
+@   IN  SOA #{hostname}.google.com. admin.google.com. (\n
+							  2         ; Serial\n
+						 604800         ; Refresh\n
+						  86400         ; Retry\n
+						2419200         ; Expire\n
+						 604800 )       ; Negative Cache TTL\n
+@   IN  NS  #{hostname}.google.com.\n
+*   IN  A   8.8.8.8\n
+www  IN  A   #{apache1}\n
+www  IN  A   #{apache2}\n"
 	action :create
 end 
 
@@ -91,13 +91,16 @@ end
 
 ip_address = node['attr']['ipaddress'] || '0.0.0.0'
 
-execute "edit_resolv" do
-	command "echo \"\nnameserver #{ip_address}\n
-	search asimov.io\n
-	search dostoievski.io\n
-	search google.com\" >> /etc/asterisk/asterisk.conf"
-	action :run
-end
+file '/etc/resolv.conf' do
+	content "options edns0 trust-ad\n
+search ec2.internal\n\n
+	
+nameserver #{ip_address}\n
+search asimov.io\n
+search dostoievski.io\n
+search google.com\n"
+	action :create
+end 
 
 execute 'restart-bind9' do
 	command 'sudo systemctl restart bind9'

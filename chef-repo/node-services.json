@@ -3,8 +3,10 @@
 	"attr": {
 		"gateway": "20.120.97.50",
 		"apache_number": "1",
-		"apache2_ip": "18.232.138.180",
+		"apache2_ip": "cambiar",
 		"hostname": "cambiar",
-		"ipaddress": "cambiar"
+		"ipaddress": "cambiar",
+		"dns_apache1_ip": "cambiar",
+		"dns_apache2_ip": "cambiar"
 	}
 }
