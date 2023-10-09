@@ -1,8 +1,10 @@
 {
-	"run_list": [ "recipe[apache::apache]", "recipe[squid::squid-cache]", "recipe[nginx::nginx-reverse]" ] ,
+	"run_list": [ "recipe[apache::apache]", "recipe[squid::squid-cache]", "recipe[nginx::nginx-reverse]", "recipe[bind9::bind9-dns]" ] ,
 	"attr": {
 		"gateway": "20.120.97.50",
-		"apache_number": "2",
-		"apache2_ip": "18.232.138.180"
+		"apache_number": "1",
+		"apache2_ip": "18.232.138.180",
+		"hostname": "cambiar",
+		"ipaddress": "cambiar"
 	}
 }

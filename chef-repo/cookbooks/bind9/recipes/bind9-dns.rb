@@ -32,21 +32,54 @@ remote_file '/etc/bind/zones/asimov.io.zone' do
 	action :create
 end
 
-remote_file '/etc/bind/zones/dostoievski.io.zone' do
-	source 'file:///home/ubuntu/Chef-Repo-PO-Redes/chef-repo/Configuration%20Files/dostoievski.io.zone'
-	owner 'root'
-	group 'root'
-	mode '0755'
-	action :create
-end
+apache1 = node['attr']['dns_apache1_ip'] || '127.0.0.0'
+apache2 = node['attr']['dns_apache2_ip'] || '127.0.0.0'
+hostname = node['attr']['hostname'] || 'localhost'
 
-remote_file '/etc/bind/zones/google.com.zone' do
-	source 'file:///home/ubuntu/Chef-Repo-PO-Redes/chef-repo/Configuration%20Files/google.com.zone'
-	owner 'root'
-	group 'root'
-	mode '0755'
+file '/etc/bind/zones/dostoievski.io.zone' do
+	content "$TTL 604800 \n
+	@   IN  SOA #{hostname}.dostoievski.io. admin.dostoievski.io. (\n
+								  2         ; Serial\n
+							 604800         ; Refresh\n
+							  86400         ; Retry\n
+							2419200         ; Expire\n
+							 604800 )       ; Negative Cache TTL\n
+	@   IN  NS  #{hostname}.dostoievski.io.\n
+	@   IN  A   #{apache2}\n
+	*   IN  A   #{apache2}\n
+	isaac  IN  A   #{apache1}"
 	action :create
-end
+end 
+
+file '/etc/bind/zones/asimov.io.zone' do
+	content "$TTL 604800 \n
+	@   IN  SOA #{hostname}.asimov.io. admin.asimov.io. (\n
+								  2         ; Serial\n
+							 604800         ; Refresh\n
+							  86400         ; Retry\n
+							2419200         ; Expire\n
+							 604800 )       ; Negative Cache TTL\n
+	@   IN  NS  #{hostname}.asimov.io.\n
+	@   IN  A   #{apache1}\n
+	*   IN  A   #{apache1}\n
+	fiodor  IN  A   #{apache2}"
+	action :create
+end 
+
+file '/etc/bind/zones/google.com.zone' do
+	content "$TTL 604800 \n
+	@   IN  SOA #{hostname}.google.com. admin.google.com. (\n
+								  2         ; Serial\n
+							 604800         ; Refresh\n
+							  86400         ; Retry\n
+							2419200         ; Expire\n
+							 604800 )       ; Negative Cache TTL\n
+	@   IN  NS  #{hostname}.google.com.\n
+	*   IN  A   8.8.8.8\n
+	www  IN  A   #{apache1}\n
+	www  IN  A   #{apache2}"
+	action :create
+end 
 
 remote_file '/etc/bind/named.conf.options' do
 	source 'file:///home/ubuntu/Chef-Repo-PO-Redes/chef-repo/Configuration%20Files/named.conf.options'
@@ -56,7 +89,17 @@ remote_file '/etc/bind/named.conf.options' do
 	action :create
 end
 
-service 'bind9' do
-	action [:start, :enable]
-  end
+ip_address = node['attr']['ipaddress'] || '0.0.0.0'
+file '/etc/resolv.conf' do
+	content "\nnameserver #{ip_address}\n
+	search asimov.io\n
+	search dostoievski.io\n
+	search google.com"
+	action :append
+end 
+
+execute 'restart-bind9' do
+	command 'sudo systemctl restart bind9'
+	action :run
+end
   
