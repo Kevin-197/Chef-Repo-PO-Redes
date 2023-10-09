@@ -16,6 +16,12 @@ remote_file '/etc/squid/squid.conf' do
 	action :create
 end
 
+ip_address = node['attr']['ipaddress'] || '8.8.8.8'
+execute "squid_config_dns" do
+	command "echo \"\ndns_nameservers #{ip_address}\" >> /etc/squid/squid.conf"
+	action :run
+end
+
 # Habilita y arranca Squid
 service 'squid' do
   action [:enable, :start]
