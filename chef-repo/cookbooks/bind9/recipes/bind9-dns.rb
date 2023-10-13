@@ -89,6 +89,11 @@ remote_file '/etc/bind/named.conf.options' do
 	action :create
 end
 
+execute 'unlink-resolv.conf' do
+	command 'sudo unlink /etc/resolv.conf'
+	action :run
+end
+
 ip_address = node['attr']['ipaddress'] || '0.0.0.0'
 
 file '/etc/resolv.conf' do
